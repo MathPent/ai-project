@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-agrigreen-50: #f0fdf4;
+  --color-agrigreen-100: #dcfce7;
+  --color-agrigreen-500: #22c55e;
+  --color-agrigreen-600: #16a34a;
+  --color-agrigreen-900: #14532d;
+  --font-sans: 'Inter', sans-serif;
+}
+
+:root {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --glass-bg: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 1rem;
+}
+
+.heading-gradient {
+  background: linear-gradient(to right, #4ade80, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  profile_photo String?
+  location      String?
+  created_at    DateTime @default(now())
+
+  scans         Scan[]
+  analyses      AreaAnalysis[]
+  posts         Post[]
+  comments      Comment[]
+}
+
+model Scan {
+  scan_id     String   @id @default(uuid())
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  image_url   String
+  plant_type  String
+  disease     String
+  confidence  Float
+  remedy      String?
+  timestamp   DateTime @default(now())
+}
+
+model AreaAnalysis {
+  analysis_id String   @id @default(uuid())
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  coordinates String
+  name        String?
+  ndvi        Float?
+  ndwi        Float?
+  rainfall    Float?
+  temperature Float?
+  timestamp   DateTime @default(now())
+}
+
+model Post {
+  post_id   String   @id @default(uuid())
+  user_id   String
+  user      User     @relation(fields: [user_id], references: [id])
+  title     String
+  content   String
+  image     String?
+  likes     Int      @default(0)
+  timestamp DateTime @default(now())
+
+  comments  Comment[]
+}
+
+model Comment {
+  comment_id String   @id @default(uuid())
+  post_id    String
+  post       Post     @relation(fields: [post_id], references: [post_id])
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id])
+  content    String
+  timestamp  DateTime @default(now())
+}
